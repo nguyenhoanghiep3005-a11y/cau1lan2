@@ -1,20 +1,10 @@
 const express = require('express');
-const mysql = require('mysql2');
 const cors = require('cors');
-require('dotenv').config();
+const db = require('./config.js');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-// Cấu hình kết nối linh hoạt
-const db = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 've_xe_re',
-    port: 3306
-});
 
 app.get('/api/trips', (req, res) => {
     db.query("SELECT * FROM trips", (err, results) => {
