@@ -1,0 +1,14 @@
+name: Deploy Backend Node.js
+on:
+  push:
+    branches: [ "main" ]
+    paths: ['backend/**'] # Chỉ chạy khi thay đổi code backend
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Trigger Render Deploy Hook
+        # URL này lấy từ Dashboard của Render và cài vào GitHub Secrets
+        run: curl -X POST ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}
