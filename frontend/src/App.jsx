@@ -7,8 +7,8 @@ function App() {
   const [filterType, setFilterType] = useState("Tất cả"); // Chức năng 2: Lọc loại xe
 
   const API_URL = window.location.hostname === "localhost" 
-    ? "http://localhost:5000/api/trips" 
-    : "https://ten-backend-cua-ban.onrender.com/api/trips"; 
+  ? "http://localhost:5000/api/trips" // Dùng Node.js khi ở máy bạn
+  : "/api.php";
 
   useEffect(() => {
     axios.get(API_URL)
