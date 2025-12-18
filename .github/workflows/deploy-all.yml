@@ -1,0 +1,26 @@
+name: Deploy Fullstack Project
+
+on:
+  push:
+    branches: [ main ] # Tự động chạy khi bạn push code lên main
+
+jobs:
+  # PHẦN 1: DEPLOY BACKEND LÊN RENDER
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render Deployment
+        run: curl -X POST ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }} # Sử dụng Secret đã thiết lập
+
+  # PHẦN 2: DEPLOY FRONTEND LÊN VERCEL
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Mã bảo mật Vercel
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod' # Đẩy thẳng lên môi trường thực tế
