@@ -6,9 +6,10 @@ function App() {
   const [searchTerm, setSearchTerm] = useState(""); // Chức năng 1: Tìm kiếm
   const [filterType, setFilterType] = useState("Tất cả"); // Chức năng 2: Lọc loại xe
 
-  const API_URL = window.location.hostname === "localhost" 
-  ? "http://localhost:5000/api/trips" // Dùng Node.js khi ở máy bạn
-  : "/api.php";
+const API_URL = window.location.hostname === "localhost"
+  ? "http://localhost:5000/api/trips"
+  : "https://NguyenHoangHiep.infinityfreeapp.com/trips.php";
+
 
   useEffect(() => {
     axios.get(API_URL)
